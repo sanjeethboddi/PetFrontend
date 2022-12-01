@@ -1,0 +1,15 @@
+<script>
+    feed_url = "http://localhost:8080/feed";
+    post_url = "http://localhost:8080/post";
+    
+async function fetchdata(id, callback) {
+    url = "https://my_url" + id;
+    // when using async calls we use await before calling a promise
+    await fetch(url).then((resp) => page_data = resp.json())   
+    callback();
+}
+
+
+
+</script>
+

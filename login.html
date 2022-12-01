@@ -1,0 +1,46 @@
+<body>
+    <h1> Login </h1>
+    <form id="formid" enctype="application/x-www-form-urlencoded" action="http://localhost:8080/login" method="post">
+        <input id="username" type="text" />
+        <input id="password" type="password" />
+        <button type="submit" name="submit">Submit</button>
+    </form>
+    <br>
+    go register at:  <a href="register.html"> login</a>
+  
+    <script>
+        var form = document.getElementById('formid');
+
+        form.onsubmit = async (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const url = form.action;
+
+        try {
+            const formData = new FormData(form);
+            console.log(form.username.value)
+            console.log(form.password.value)
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+                },    
+                body: new URLSearchParams({
+                    'username': form.username.value,
+                    'password': form.password.value,
+                    'grant_type': ''
+                })
+            });
+            data = await response.json();
+            console.log(data);
+            document.cookie=`access_token=${data.access_token}`;
+            window.localStorage.setItem("access_token", data.access_token);
+        } catch (error) {
+            console.error(error);
+        }
+        location.href = "feed.html";
+        }
+
+
+    </script>
+</body>
